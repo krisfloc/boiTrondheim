@@ -10,11 +10,11 @@ import title from '../../icons/title.png'
 function LayerDiv(props){
   const { name, active} = props
   if (active){
-    return <div className="active-layer layer">  {name} <img src={check} className="icon"/> </div>
+    return <div className="active-layer layer">  {name} <img src={check} className="icon" alt=""/> </div>
   }
   else{
     return (
-      <div className="disabled-layer layer">  {name} <img src={uncheck} className="icon"/> </div>
+      <div className="disabled-layer layer">  {name} <img src={uncheck} className="icon" alt=""/> </div>
     )
   }
 }
@@ -141,7 +141,9 @@ class MapMenu extends Component{
         case this.state.svar[this.state.oppgNr]:
           alert("det funka")
           event.target.getElementsByClassName("input")[0].value = ""
-          this.state.oppgNr += 1
+          this.setState((state) => {
+            return {oppgNr: state.oppgNr + 1}
+            })
           break
         default:
           alert ("feil")
@@ -161,7 +163,7 @@ class MapMenu extends Component{
     return (
       <ul>
         <div>
-          <img src={title} class="title"/>
+          <img src={title} class="title" alt=""/>
         </div>
         <li class="refresh">
           <a href="/">Last inn på nytt</a>
