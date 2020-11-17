@@ -42,8 +42,8 @@ class Map extends Component{
       zoom: zoom,
       attributionControl: false
     });
-
-    map.addControl(new mapboxgl.AttributionControl(), 'bottom-left');
+    
+    map.addControl(new mapboxgl.AttributionControl(), 'top-left');
 
     //Legger på alle kartlag når kartet er 'loadet'
     map.on('load', function () {
