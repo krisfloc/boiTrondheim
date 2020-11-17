@@ -40,7 +40,10 @@ class Map extends Component{
       style: background,
       center: [lng, lat],
       zoom: zoom,
+      attributionControl: false
     });
+
+    map.addControl(new mapboxgl.AttributionControl(), 'bottom-left');
 
     //Legger på alle kartlag når kartet er 'loadet'
     map.on('load', function () {
