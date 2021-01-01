@@ -53,9 +53,9 @@ class RootWrapper extends Component {
     return (
       <div className="RootWrapper">
         <MapMenu layers={allAvailableLayers} visibleLayers={visibleLayers} layersChanged={this.handleLayerChange} addLayer={this.newLayerAdded}/>
-         <div className="map-container">
-           <Map allAvailableLayers={allAvailableLayers} visibleLayers={visibleLayers} ref={this.mapElement} />
-         </div>
+        <div className="map-container">
+         <Map allAvailableLayers={allAvailableLayers} visibleLayers={visibleLayers} ref={this.mapElement} />
+        </div>
      </div>
     )
   }

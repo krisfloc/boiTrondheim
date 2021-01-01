@@ -28,6 +28,7 @@ class MapMenu extends Component{
     this.handleMeasurementSubmit = this.handleMeasurementSubmit.bind(this)
     this.oppgaveOnClick = this.oppgaveOnClick.bind(this)
     this.submitAnswer = this.submitAnswer.bind(this)
+    this.undisplayer = this.undisplayer.bind(this)
 
     this.state = {
       oppgaver: ["Universet", "Sex"],
@@ -59,7 +60,7 @@ class MapMenu extends Component{
     let updatedLayers = []
     const clickedLayer = layers.find( layer => layer.id === id)
     if(visibleLayers.includes(clickedLayer)){
-      updatedLayers = visibleLayers.filter(l =>  l.id !== id)
+      updatedLayers = visibleLayers.filter(l => l.id !== id)
     }
     else{
       updatedLayers = [...visibleLayers, clickedLayer]
@@ -126,10 +127,19 @@ class MapMenu extends Component{
 
   oppgaveOnClick() {
     if (this.state.oppgNr < 2) {
-      alert(this.state.oppgaver[this.state.oppgNr])
+      var nr = this.state.oppgNr + 1
+      document.getElementById("header").innerHTML = "Oppgave " + nr
+      document.getElementById("body").innerHTML = this.state.oppgaver[this.state.oppgNr]
+      document.getElementById("footer").innerHTML = ""
+      this.displayer()
+      // alert(this.state.oppgaver[this.state.oppgNr])
     }
     else {
-      alert("Du er ferdig!")
+      document.getElementById("header").innerHTML = ""
+      document.getElementById("body").innerHTML = "Du er ferdig!"
+      document.getElementById("footer").innerHTML = ""
+      this.displayer()
+      // alert("Du er ferdig!")
     }
   }
 
@@ -139,22 +149,44 @@ class MapMenu extends Component{
     if (this.state.oppgNr < 2) {
       switch (answer) {
         case this.state.svar[this.state.oppgNr]:
-          alert("det funka")
+          var nr = this.state.oppgNr + 1
+          document.getElementById("header").innerHTML = "Oppgave " + nr
+          document.getElementById("body").innerHTML = "Det funka!"
+          document.getElementById("footer").innerHTML = ""
+          this.displayer()
+          // alert("det funka")
           event.target.getElementsByClassName("input")[0].value = ""
           this.setState((state) => {
             return {oppgNr: state.oppgNr + 1}
             })
           break
         default:
-          alert ("feil")
+          var nr = this.state.oppgNr + 1
+          document.getElementById("header").innerHTML = "Oppgave " + nr
+          document.getElementById("body").innerHTML = "Feil!"
+          document.getElementById("footer").innerHTML= ""
+          this.displayer()
+          // alert ("feil")
           event.target.getElementsByClassName("input")[0].value = ""
           break
       }
     }
     else {
-      alert("Du er ferdig!")
+      document.getElementById("header").innerHTML = ""
+      document.getElementById("body").innerHTML = "Du er ferdig!"
+      document.getElementById("footer").innerHTML = ""
+      this.displayer()
+      // alert("Du er ferdig!")
       event.target.getElementsByClassName("input")[0].value = ""
     }
+  }
+
+  displayer() {
+    document.getElementById("myModal").style.display = "block"
+  }
+  
+  undisplayer() {
+    document.getElementById("myModal").style.display = "none"
   }
 
   render() {
@@ -192,8 +224,21 @@ class MapMenu extends Component{
           <input type="text" className="input" placeholder="Svar..."/>
           <input type="submit" className="submit"/>
         </form>
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="close" onClick={this.undisplayer}>&times;</span>
+              <h2 id="header">Modal Header</h2>
+            </div>
+            <div class="modal-body">
+              <p id="body">Some text in the Modal Body</p>
+            </div>
+            <div class="modal-footer">
+              <h3 id="footer">Modal Footer</h3>
+            </div>
+          </div>
+        </div>
       </ul>
-
     )
   }
 }

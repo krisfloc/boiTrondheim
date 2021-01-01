@@ -7,7 +7,7 @@ import * as turf from '@turf/turf'
 */
 export function bufferTool(layer, bufferDistance, layerName){
     const bufferData =  turf.buffer(layer, bufferDistance, {units: 'meters'})
-    return createLayerFromGeoJSON(bufferData, 'fill', layerName + bufferDistance)
+    return createLayerFromGeoJSON(bufferData, 'fill', layerName + bufferDistance + "m")
 }
 
 /**
@@ -20,7 +20,7 @@ export function unionTool(l1, l2, layerName){
         alert("NULL")
         return
     }else{
-        return createLayerFromGeoJSON(data, 'fill', layerName + '-union')
+        return createLayerFromGeoJSON(data, 'fill', 'Union-' + layerName)
     }
 
 }
@@ -70,7 +70,11 @@ export function lineLengthTool(layer, layerName){
 */
 export function areaTool(layer, layerName){
     const area = turf.area(layer);
-    alert("Arealet av " + layerName + " er " + Math.round(area) + " kvm");
+    document.getElementById("header").innerHTML = layerName
+    document.getElementById("body").innerHTML = "Arealet er " + Math.round(area) + " kvm"
+    document.getElementById("footer").innerHTML = ""
+    document.getElementById("myModal").style.display = "block"
+    // alert("Arealet av " + layerName + " er " + Math.round(area) + " kvm");
 }
 
 /**

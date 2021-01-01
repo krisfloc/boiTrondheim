@@ -19,31 +19,18 @@ class Map extends Component{
 
   //Lifecycle-method som kalles automatisk når komponenten er 'mounted'
   componentDidMount() {
-    this.initializeMap("mapbox://styles/mapbox/light-v10")
-  }
-
-  //Leggere til et kartlag layer på kartet
-  addNewLayer(layer){
-    this.map.addLayer(layer)
-  }
-
-  /**Funksjon for å initialisere et mapbox-kart. Oppretter et kart med gitte senterkoordinater og zoomnivå tatt
-    fra komponentens state, og et gitt bakgrunnkart
-  */
-
-  initializeMap(background){
     const { lng, lat, zoom } = this.state
     const  allAvailableLayers  = this.props.allAvailableLayers
 
     const map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: background,
+      style: 'mapbox://styles/mapbox/light-v10',
       center: [lng, lat],
       zoom: zoom,
     });
 
     //Legger på alle kartlag når kartet er 'loadet'
-    map.on('load', function () {
+    map.on('load', () => {
       allAvailableLayers.forEach( layer => {
         map.addLayer(layer)
       })
@@ -60,7 +47,48 @@ class Map extends Component{
     })
 
     this.map = map
+    // this.initializeMap("mapbox://styles/mapbox/light-v10")
   }
+
+  //Leggere til et kartlag layer på kartet
+  addNewLayer(layer){
+    this.map.addLayer(layer)
+  }
+
+  /**Funksjon for å initialisere et mapbox-kart. Oppretter et kart med gitte senterkoordinater og zoomnivå tatt
+    fra komponentens state, og et gitt bakgrunnkart
+  */
+
+  // initializeMap(background){
+  //   const { lng, lat, zoom } = this.state
+  //   const  allAvailableLayers  = this.props.allAvailableLayers
+
+  //   const map = new mapboxgl.Map({
+  //     container: this.mapContainer,
+  //     style: background,
+  //     center: [lng, lat],
+  //     zoom: zoom,
+  //   });
+
+  //   //Legger på alle kartlag når kartet er 'loadet'
+  //   map.on('load', function () {
+  //     allAvailableLayers.forEach( layer => {
+  //       map.addLayer(layer)
+  //     })
+  //   })
+
+  //   //Sørger for å endre state når brukeren zoomere og panorerer kartet
+  //   map.on('move', () => {
+  //     const { lng, lat } = map.getCenter()
+  //     this.setState({
+  //       lng: lng.toFixed(4),
+  //       lat: lat.toFixed(4),
+  //       zoom: map.getZoom().toFixed(2)
+  //     })
+  //   })
+
+  //   this.map = map
+  // }
 
   //Kalles når det skal oppdateres hvilke lag som skal vises på kartet.
   //LayersToAdd er lagene som ikke synes på kartet fra før men skal legges til, og layersToHidee er kartene som vises på kartet som ikke skal vises lengre
