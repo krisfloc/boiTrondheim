@@ -1,6 +1,6 @@
-//Denne filen tar inn GeoJSON-objekter fra './geojsondata.js' og lager objekter klare til å legges på kartet som kartlag vha mapbox
+// Lager kartlag til kart-komponenten fra GeoJson-data
 
-import {midtbyen, kalvskinnet, torget, hovedvei, butikker, busstopp} from './geojsondata.js'
+import {midtbyen, kalvskinnet, torget, hovedvei, butikker, busstopp} from './geojson.js'
 
 const midtbyen_layer = {
     "id": "Midtbyen",
@@ -102,6 +102,6 @@ const busstopp_layer = {
     }
 }
 
-const allLayers = [midtbyen_layer, kalvskinnet_layer, torget_layer, hovedvei_layer, butikker_layer, busstopp_layer]
+const layers = [midtbyen_layer, kalvskinnet_layer, torget_layer, hovedvei_layer, butikker_layer, busstopp_layer]
 
-export default allLayers
+export default layers

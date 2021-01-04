@@ -1,25 +1,25 @@
 import React from 'react'
-import './menu.css'
+import './App.css'
 
-//Tool-menu komponenten.
-//Tar inn funksjoner som håndterer bruk av verktøyene, og kartlagene
-function ToolMenu(props){
+// Listen med verktøy-komponenter som brukes i navbaren
+function Tools(props){
     return(
         <div>
-          <AreaTool handleMeasurementSubmit={props.measurementSubmit} layers={props.layers}/>
-          <BufferTool bufferToolSumbit={props.bufferToolSumbit} layers={props.layers}/>
-          <UnionTool handleSubmit={props.handleSubmit}  layers={props.layers}/>
-          <IntersectionTool handleSubmit={props.handleSubmit} layers={props.layers}/>
-          <DifferenceTool handleSubmit={props.handleSubmit} layers={props.layers}/>
+          <AreaTool areaSubmit={props.areaSubmit} layers={props.layers}/>
+          <BufferTool bufferSubmit={props.bufferSubmit} layers={props.layers}/>
+          <UnionTool createSubmit={props.createSubmit}  layers={props.layers}/>
+          <IntersectionTool createSubmit={props.createSubmit} layers={props.layers}/>
+          <DifferenceTool createSubmit={props.createSubmit} layers={props.layers}/>
         </div>
     )
 }
-//BufferTool-komponenten
+
+// Oppsettet til buffer-verktøyet
 function BufferTool(props){
     return(
         <div className="tool">
             Buffer
-            <form onSubmit={props.bufferToolSumbit}>
+            <form onSubmit={props.bufferSubmit}>
                 <select className="bufferSelect">
                     {props.layers.map(layer => <option key={layer.id} > {layer.id}</option>)}
                 </select> <br/>
@@ -32,12 +32,12 @@ function BufferTool(props){
     )
 }
 
-//AreaTool-komponenten
+// Oppsettet til areal-verktøyet
 function AreaTool(props){
     return(
         <div className="tool">
             Areal av polygon
-            <form onSubmit={props.handleMeasurementSubmit} className="area-form">
+            <form onSubmit={props.areaSubmit} className="area-form">
                 <select className="measurement-select">
                     {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon" || layer.source.data.geometry.type === "MultiPolygon").map(layer => <option key={layer.id} > {layer.id}</option>)}
                 </select>
@@ -47,12 +47,12 @@ function AreaTool(props){
     )
 }
 
-//UnionTool-komponenten
+// Oppsettet til union-verktøyet
 function UnionTool(props){
     return(
         <div className="tool">
             Union
-            <form onSubmit ={props.handleSubmit} className="union-form">
+            <form onSubmit ={props.createSubmit} className="union-form">
                 <select className="select-one">
                     {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon" || layer.source.data.geometry.type === "MultiPolygon" ).map(layer => <option key={layer.id} > {layer.id}</option>)}
                 </select> <br/>
@@ -65,12 +65,12 @@ function UnionTool(props){
     )
 }
 
-//IntersectionTool-komponenten
+// Oppsettet til snitt-verktøyet
 function IntersectionTool(props){
     return(
         <div className="tool">
             Snitt
-            <form onSubmit ={props.handleSubmit} className="intersection-form">
+            <form onSubmit ={props.createSubmit} className="intersection-form">
                 <select className="select-one">
                     {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon" || layer.source.data.geometry.type === "MultiPolygon").map(layer => <option key={layer.id} > {layer.id}</option>)}
                 </select><br/>
@@ -83,12 +83,12 @@ function IntersectionTool(props){
     )
 }
 
-//DifferenceTool-komponenten
+// Oppsettet til differanse-verktøyet
 function DifferenceTool(props){
     return(
         <div className="tool">
             Differanse
-            <form onSubmit ={props.handleSubmit} className="difference-form">
+            <form onSubmit ={props.createSubmit} className="difference-form">
                 <select className="select-one">
                     {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon" || layer.source.data.geometry.type === "MultiPolygon").map(layer => <option key={layer.id} > {layer.id}</option>)}
                 </select>
@@ -101,4 +101,4 @@ function DifferenceTool(props){
     )
 }
 
-export default ToolMenu
+export default Tools

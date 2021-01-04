@@ -1,4 +1,4 @@
-//Denne filen inneholder GeoJSON-objektene som utgjør dataen i kartlagene
+// GeoJson-objekter, poligoner, punkt og linje
 export const midtbyen = {
   "type": "Feature",
   "properties": {
