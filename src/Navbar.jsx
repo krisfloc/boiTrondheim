@@ -65,10 +65,19 @@ class Navbar extends Component{
     event.preventDefault()
     const layerId = event.target.getElementsByClassName("bufferSelect")[0].value
     const bufferDist = event.target.getElementsByClassName("bufferDist")[0].value
-    const layer = this.props.layers.find(layer => layer.id === layerId)
-    const bufferedLayer = buffer(layer.source.data, bufferDist, layerId)
-    this.props.addLayer(bufferedLayer)
-    event.target.getElementsByClassName("bufferDist")[0].value = ""
+    if (bufferDist == 0 || bufferDist == "") {
+      document.getElementById("header").innerHTML = "Buffer"
+      document.getElementById("body").innerHTML = "Må ha en bufferdistanse"
+      document.getElementById("footer").innerHTML = ""
+      this.displayer()
+      event.target.getElementsByClassName("bufferDist")[0].value = ""
+    }
+    else {
+      const layer = this.props.layers.find(layer => layer.id === layerId)
+      const bufferedLayer = buffer(layer.source.data, bufferDist, layerId)
+      this.props.addLayer(bufferedLayer)
+      event.target.getElementsByClassName("bufferDist")[0].value = ""
+    }
   }
 
   // Kjører snitt-, differanse- eller union-verktøyet og legger til det nye laget i kartet når verktøyet blir brukt
